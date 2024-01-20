@@ -15,24 +15,41 @@ link_makefile () {
     return 1
 }
 
-if [ "${1}" == "Golang" ]
+if [ $# -eq 0 ]
 then
-    for f in $(ls -1 ${MAKEFILES_PATH} | sort -V)
+    echo "usage: $(basename $0) <name> [name...]"
+    echo "       $(basename $0) all"
+    echo
+    echo "names:"
+    for name in $(ls -1 ${MAKEFILES_PATH} | sort -V)
     do
-        link_makefile "${f}"
+        echo "  ${name}"
     done
     exit
 fi
 
+case "${1}" in
+    "all"|"All"|"ALL")
+        for f in $(ls -1 ${MAKEFILES_PATH} | sort -V)
+        do
+            link_makefile "${f}"
+        done
+        exit
+        ;;
+esac
+
 for mf in "${@}"
 do
+    #: check exact name first
     link_makefile "${mf}"
     if [ $? -ne 0 ]
     then
+        #: check Golang.{name}.mk next
         link_makefile "Golang.${mf}.mk"
         if [ $? -ne 0 ]
         then
-            echo "# Makefile not found: ${mf}"
+            #: not a thing
+            echo "# not found: ${mf}"
         fi
     fi
 done
