@@ -16,7 +16,7 @@
 
 MAKEFILE_KEYS += GOLANG_LIB
 GOLANG_LIB_MK_FILE := Golang.lib.mk
-GOLANG_LIB_MK_VERSION := v0.2.1
+GOLANG_LIB_MK_VERSION := v0.2.2
 GOLANG_LIB_MK_DESCRIPTION := go-corelibs support
 
 #
@@ -79,6 +79,10 @@ ifeq (globs,$(shell echo "${FOUND_CORELIBS}" | grep '^globs$$'))
 GOPKG_KEYS += CL_GLOBS
 endif
 
+ifeq (lang,$(shell echo "${FOUND_CORELIBS}" | grep '^lang$$'))
+GOPKG_KEYS += CL_LANG
+endif
+
 ifeq (maps,$(shell echo "${FOUND_CORELIBS}" | grep '^maps$$'))
 GOPKG_KEYS += CL_MAPS
 endif
@@ -131,6 +135,10 @@ ifeq (words,$(shell echo "${FOUND_CORELIBS}" | grep '^words$$'))
 GOPKG_KEYS += CL_WORDS
 endif
 
+ifeq (x-text,$(shell echo "${FOUND_CORELIBS}" | grep '^x-text$$'))
+GOPKG_KEYS += CL_X_TEXT
+endif
+
 #: end AUTO_CORELIBS
 endif
 
@@ -157,6 +165,9 @@ CL_FMTSTR_LOCAL_PATH ?= ${CORELIBS_PATH}/fmtstr
 
 CL_GLOBS_GO_PACKAGE ?= ${CORELIBS_BASE}/globs
 CL_GLOBS_LOCAL_PATH ?= ${CORELIBS_PATH}/globs
+
+CL_LANG_GO_PACKAGE ?= ${CORELIBS_BASE}/lang
+CL_LANG_LOCAL_PATH ?= ${CORELIBS_PATH}/lang
 
 CL_MAPS_GO_PACKAGE ?= ${CORELIBS_BASE}/maps
 CL_MAPS_LOCAL_PATH ?= ${CORELIBS_PATH}/maps
@@ -199,3 +210,6 @@ CL_STRINGS_LOCAL_PATH ?= ${CORELIBS_PATH}/strings
 
 CL_WORDS_GO_PACKAGE ?= ${CORELIBS_BASE}/words
 CL_WORDS_LOCAL_PATH ?= ${CORELIBS_PATH}/words
+
+CL_X_TEXT_GO_PACKAGE ?= ${CORELIBS_BASE}/x-text
+CL_X_TEXT_LOCAL_PATH ?= ${CORELIBS_PATH}/x-text
